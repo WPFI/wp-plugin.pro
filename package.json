@@ -5,7 +5,9 @@
   "homepage": "https://wp-plugin.pro",
   "dependencies": {
     "custom-react-scripts": "0.2.0",
+    "debounce": "^1.0.2",
     "gh-pages": "^1.0.0",
+    "highlight.js": "^9.12.0",
     "marksy": "^5.0.0",
     "normalize.css": "^7.0.0",
     "react": "^15.6.1",
