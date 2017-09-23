@@ -2,7 +2,7 @@
   "name": "wp-plugin.pro",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://wp-plugin.pro",
+  "homepage": "https://wp-plugin.pro",
   "dependencies": {
     "custom-react-scripts": "0.2.0",
     "gh-pages": "^1.0.0",
