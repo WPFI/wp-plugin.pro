@@ -44,4 +44,14 @@ p, .p {
 
 a {
   text-decoration: none
+  color: colors.orange
+  transition: 0.1s ease-in
+
+  &:visited {
+    color: colors.orange
+  }
+
+  &:hover, &:focus, &:active {
+    color: colors.white
+  }
 }
