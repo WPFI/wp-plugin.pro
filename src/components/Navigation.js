@@ -62,7 +62,6 @@ class Navigation extends Component {
       const nextStage = (tree) => {
         const keys = Object.keys(tree);
 
-        console.log(keys.length, keys);
         if (keys.length < 3) {
           return false;
         }
