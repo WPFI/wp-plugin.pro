@@ -18,7 +18,27 @@ body, #root {
   flex-flow: row nowrap
   height: 100%
 
+
   #site-navigation {
     flex-basis: r(350px)
+  }
+
+  @media media.small, media.xsmall {
+    flex-flow: column wrap
+
+    #site-navigation {
+      flex-basis: auto
+      width: 100%
+      height: auto
+
+      > ul {
+        max-height: r(100px)
+        overflow-y: scroll
+      }
+    }
+
+    #main {
+      height: auto
+    }
   }
 }
