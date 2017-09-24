@@ -4,6 +4,7 @@ import debounce from 'debounce';
 
 import style from './Article.module.styl';
 import shared from '../shared-variables.json';
+import { convertURLToLocal } from '../lib/pages'
 
 import marksy from 'marksy/components';
 import 'highlight.js/styles/railscasts.css';
@@ -14,7 +15,6 @@ import hljsPhp from 'highlight.js/lib/languages/php';
 hljs.registerLanguage('javascript', hljsJavascript);
 hljs.registerLanguage('php', hljsPhp);
 
-const CodeBlock = ({ children }) => console.log(children) || children;
 
 const compile = marksy({
   createElement,
@@ -24,26 +24,12 @@ const compile = marksy({
     }
   },
   elements: {
-    /* code(props) {
-      if (props.children) {
-        return <code className="code-span">{props.children[0]}</code>
-      } else if (props.code) {
-        let code;
-        return (
-          <pre className="code-block">
-            <code className={`language-${props.language}`}>{props.code}</code>
-          </pre>
-        );
-      } else {
-        console.warn('Edge case?');
-      }
-    }, */
   },
   highlight(lang, code) {
     if (lang && hljs.getLanguage(lang)) {
       return hljs.highlight(lang, code, true).value;
     } else {
-      return <CodeBlock>{hljs.highlightAuto(code).value}</CodeBlock>;
+      return hljs.highlightAuto(code).value;
     }
   }
 });
@@ -58,10 +44,6 @@ class Article extends Component {
     };
 
     this.debouncedResize = debounce(this.handleResize.bind(this), 100);
-  }
-
-  getRequestedFilename() {
-    return this.props.match.url.replace('/docs/', './');
   }
 
   handleResize() {
@@ -129,7 +111,7 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    const file = this.props.pages.find((page) => page.filename === this.getRequestedFilename());
+    const file = this.props.pages.find((page) => page.filename === convertURLToLocal(this.props.match.url));
     if (file) {
       fetch(file.path)
         .then((r) => r.text())
