@@ -28,10 +28,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      pages: ['Test', 'Test 2'],
-    });
-
     this.getPages();
 
 
@@ -59,7 +55,7 @@ class App extends Component {
           <header>
             <h1>WP-Plugin.pro</h1>
             <span className="tagline">
-              WordPress plugins and tips from pros
+              Make WordPress great again.
             </span>
           </header>
         </Navigation>
