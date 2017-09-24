@@ -66,6 +66,7 @@ class Article extends Component {
           const firstChild = pre.firstChild;
           pre.style = {};
           firstChild.style = {};
+          aside.style = {};
         });
 
         requestAnimationFrame(() => {
@@ -90,16 +91,18 @@ class Article extends Component {
           left: parseInt(preStyle.getPropertyValue('padding-left'), 10),
         };
 
-        const vOffset = preDimensions.top - pSDimensions.top - padding.top - padding.bottom;
+        const vOffset = 0; //preDimensions.top - pSDimensions.top - padding.top - padding.bottom;
         const hOffset = contentArea.offsetWidth + 1;
         const { height } = preDimensions;
 
-        pre.style.maxWidth = `${aside.offsetWidth * 0.90}px`
-        pre.style.marginBottom = `-${height}px`;
+        pre.style.maxWidth = `${aside.offsetWidth * 1}px`
+        // pre.style.marginBottom = `-${height}px`;
         pre.style.transform = `translateX(${hOffset}px) translateY(-${vOffset}px)`;
 
-        firstChild.style.paddingTop = 0;
+        // firstChild.style.paddingTop = 0;
         firstChild.style.paddingLeft = '1.25rem'; // 20px in default scale
+
+        aside.style.height = `${contentArea.offsetHeight}px`;
       });
     };
 
