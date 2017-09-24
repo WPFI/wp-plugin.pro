@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import WebFont from 'webfontloader';
 
 import Navigation from './components/Navigation';
 import Main from './components/Main';
@@ -30,22 +31,11 @@ class App extends Component {
   componentDidMount() {
     this.getPages();
 
-
-   /* pages.map((page) => {
-      fetch(page.path)
-        .then((r) => r.text())
-        .then((r) => {
-          console.log(page.filename, r);
-        });
-    }); */
-
-    // console.log(require('./pages/*'));
-
-    // recursiveReadDir('../pages', (err, files) => {
-      // if (err) console.error(err);
-
-      // console.log(files);
-    // });
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro', 'Source Code Pro'],
+      },
+    });
   }
 
   render() {
