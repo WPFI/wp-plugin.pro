@@ -99,7 +99,16 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    const file = this.props.pages.find((page) => page.filename === convertURLToLocal(this.props.file || this.props.match.url));
+    const propsFile = this.props.file;
+    const urlFile = this.props.match.url;
+    const target = convertURLToLocal(propsFile || urlFile);
+
+    console.log(propsFile, urlFile, target);
+
+    const file = this.props.pages.find((page) => page.filename === target);
+    const failure = (msg) => this.setState({ article: msg });
+
+    console.log(file);
     if (file) {
       fetch(file.path)
         .then((r) => r.text())
@@ -109,7 +118,9 @@ class Article extends Component {
           this.setState({
             article
           });
-        });
+        }).catch(failure);
+    } else {
+      failure(<p>File not found</p>);
     }
 
     window.addEventListener('resize', this.debouncedResize);
