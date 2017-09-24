@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import deepmerge from 'deepmerge';
 
 import style from './Navigation.module.styl';
-import { stripStartAndEnd, breakIntoParts, isDir, isFile } from '../lib/pages'
+import { breakIntoParts } from '../lib/pages'
 
 class Navigation extends Component {
     constructor(props) {
@@ -70,11 +70,11 @@ class Navigation extends Component {
           <ul>
             {keys.map((key) => {
               if (key === 'name' || key === 'type') {
-
+                return false;
               } else {
                 const t = tree[key];
                 return (
-                  <li>
+                  <li key={Math.random()}>
                     {naviLink(t)}
                     {typeof t !== 'string' ? nextStage(t) : ''}
                   </li>
@@ -92,8 +92,7 @@ class Navigation extends Component {
           <ul>
             {Object.keys(this.state.tree).map((key) => {
               const tree = this.state.tree[key];
-              console.log(tree);
-              return <li>
+              return <li key={key}>
                 {naviLink(tree)}
                 {nextStage(tree)}
               </li>

@@ -103,12 +103,9 @@ class Article extends Component {
     const urlFile = this.props.match.url;
     const target = convertURLToLocal(propsFile || urlFile);
 
-    console.log(propsFile, urlFile, target);
-
     const file = this.props.pages.find((page) => page.filename === target);
     const failure = (msg) => this.setState({ article: msg });
 
-    console.log(file);
     if (file) {
       fetch(file.path)
         .then((r) => r.text())
