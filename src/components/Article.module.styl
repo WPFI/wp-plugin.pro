@@ -26,6 +26,12 @@
   p {
     margin: 1rem 0 // Probably the only time I'll want a top margin.
   }
+  
+  a {
+    &:hover, &:focus, &:active {
+      color: darken(colors.orange, 10%)
+    }
+  }
 
   pre {
     padding: 0
