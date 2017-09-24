@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/k1sul1/wp-plugin.pro.svg?branch=master)](https://travis-ci.org/k1sul1/wp-plugin.pro)
+
 # WP-Plugin.pro
 
 Curated list of things that helps you do things properly in WordPress.
