@@ -24,12 +24,13 @@ body, #root {
   }
 
   @media media.xsmall, media.small {
-    flex-flow: column wrap
+    flex-flow: column nowrap
 
     #site-navigation {
       flex-basis: auto
       width: 100%
       height: auto
+      // max-height: r(150px)
 
       > ul {
         max-height: r(100px)
