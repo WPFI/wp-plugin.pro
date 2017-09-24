@@ -43,7 +43,7 @@ class Article extends Component {
       article: <p>Loading, please wait...</p>,
     };
 
-    this.debouncedResize = debounce(this.handleResize.bind(this), 100);
+    this.debouncedResize = debounce(this.handleResize.bind(this), 16);
   }
 
   handleResize() {
