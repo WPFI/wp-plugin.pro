@@ -70,6 +70,7 @@ class Article extends Component {
         });
 
         requestAnimationFrame(() => {
+          aside.style.height = `${contentArea.offsetHeight}px`;
           resolve();
         });
       });
@@ -86,8 +87,6 @@ class Article extends Component {
         pre.style.transform = `translateX(${hOffset}px) translateY(-${vOffset}px)`;
 
         firstChild.style.paddingLeft = '1.25rem'; // 20px in default scale
-
-        aside.style.height = `${contentArea.offsetHeight}px`;
       });
     };
 
