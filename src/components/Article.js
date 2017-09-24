@@ -77,29 +77,14 @@ class Article extends Component {
 
     const position = () => {
       Array.from(pres).forEach((pre) => {
-        const prevSibling = pre.previousElementSibling;
         const firstChild = pre.firstChild;
-        const pSDimensions = prevSibling.getBoundingClientRect();
-        const preDimensions = pre.getBoundingClientRect();
 
-
-        const preStyle = window.getComputedStyle(pre, null);
-        const padding = {
-          top: parseInt(preStyle.getPropertyValue('padding-top'), 10),
-          right: parseInt(preStyle.getPropertyValue('padding-right'), 10),
-          bottom: parseInt(preStyle.getPropertyValue('padding-bottom'), 10),
-          left: parseInt(preStyle.getPropertyValue('padding-left'), 10),
-        };
-
-        const vOffset = 0; //preDimensions.top - pSDimensions.top - padding.top - padding.bottom;
+        const vOffset = 0;
         const hOffset = contentArea.offsetWidth + 1;
-        const { height } = preDimensions;
 
         pre.style.maxWidth = `${aside.offsetWidth * 1}px`
-        // pre.style.marginBottom = `-${height}px`;
         pre.style.transform = `translateX(${hOffset}px) translateY(-${vOffset}px)`;
 
-        // firstChild.style.paddingTop = 0;
         firstChild.style.paddingLeft = '1.25rem'; // 20px in default scale
 
         aside.style.height = `${contentArea.offsetHeight}px`;
