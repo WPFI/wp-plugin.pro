@@ -3,7 +3,7 @@ WP Libre Form is a "direct replacement" to Contact Form 7. That means it has the
 * can send submissions via email and it saves the submissions to the database by default. 
 * doesn't mess with your code. The markup you enter to the form is exactly what you get when the form renders, no extra paragraph tags. 
 * has built-in Polylang support that makes forms multilingual using placeholder tags. 
-* allows you to run code after form submission (trigger a file download, view change, whatever you want to do based on the response, that is fully customizable.  
+* allows you to run code after form submission (trigger a file download, view change, whatever you want to do based on the response, that is fully customizable).  
 
 ## Where it falls short? 
 As forms are pure HTML (shortcodes and placeholders exist though) most clients can't edit the forms. You might get away with clients maintaining forms by themselves if you provide them with many element samples and strict instructions. 
