@@ -7,4 +7,4 @@ cache:
 script:
   - timeout 60 npm run build
   - npm test
-  - npm run justdoit
+  - npm run justdoit -- --repo https://$GH_TOKEN@github.com/k1sul1/wp-plugin.pro.git
