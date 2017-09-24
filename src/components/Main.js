@@ -5,10 +5,6 @@ import Article from './Article';
 
 import style from './Main.module.styl';
 
-const Home = () => (
-  <h1>Home</h1>
-);
-
 const About = () => (
   <h1>About</h1>
 );
@@ -18,7 +14,7 @@ class Main extends Component {
     return (
       <main className={style.Main} id={this.props.id}>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={(props) => <Article {...props} pages={this.props.pages} file="/docs/index.md" />} />
           <Route path="/about" component={About} />
 
           <Route path="/docs/:folder/:filename" component={(props) => <Article {...props} pages={this.props.pages} />} />

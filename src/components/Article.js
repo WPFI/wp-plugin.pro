@@ -40,7 +40,7 @@ class Article extends Component {
     super(props);
 
     this.state = {
-      article: 'Loading, please wait...',
+      article: <p>Loading, please wait...</p>,
     };
 
     this.debouncedResize = debounce(this.handleResize.bind(this), 100);
@@ -111,7 +111,7 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    const file = this.props.pages.find((page) => page.filename === convertURLToLocal(this.props.match.url));
+    const file = this.props.pages.find((page) => page.filename === convertURLToLocal(this.props.file || this.props.match.url));
     if (file) {
       fetch(file.path)
         .then((r) => r.text())
