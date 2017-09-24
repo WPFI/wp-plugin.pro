@@ -7,8 +7,7 @@ cache:
 script:
 - timeout 60 npm run build || true
 - npm test
-- if [ -z ${GH_TOKEN+x} ]; then echo "Not authorized to build."; else npm run justdoit
-  -- --repo https://$GH_TOKEN@github.com/k1sul1/wp-plugin.pro.git; fi
+- 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run justdoit -- --repo https://$GH_TOKEN@github.com/k1sul1/wp-plugin.pro.git; fi'
 branches:
   only:
   - master
