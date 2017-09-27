@@ -14,3 +14,5 @@ branches:
 env:
   matrix:
     secure: GMbeuyY+7LZYdEJrDvoU/o9WlnBeTHZEnQ/++GcClMXjz8XOWYBnHVpa9+QKqg3bLctfQ8+nMjhRS2oDw/7y49UIGZSWVpewDj+YRrjFyOcAQzltFjH1OwftkKwP1u3CDA2pC9tlQayGEL4/Sy/AoEriEez0PgtSIg2BHd3Bl6Q238L4+GzibSEpy1SQ7zsp5Vp0/803DjC6vLmYw/EvoUYrCGM5uMtvr/mzh2EjfnLZ4Y+xFWFPHh985tMr2QahtfW/sa9bp0i50Gv6HEydkVVHDStUgf7J5Dp+uazXtyGFJdmwcKZhQRCvVvHpWyAZ8t/Dv6qa8i0UxzbY8MrBR9PfrPxjtZRi93QbSJpZlUXy5qcD046fC6tfh9aZQfybvWHlLo5Obqaq80yKMELVtBekD8c+S8e9NL51KuMpH12z9Fsc+4kOsd6r3lbrA5st7ahkKMsUodle47TNKVtCiZXUif/oJ0VKKDcEJLyniWlE60viUe+lT3OlzWDzublDUhZUYtKPPMUsbZwNDHbt1ql419/dW9abzVRim1QdJ6iyKSYXAZrc+ixOYIIoQCOMHuUn/I8n3nE5WaWi9Y3pdOMswGWSOQ+SwLr/hxcXYduD9aNZLci/RQFhaY2UI8EqRY2dQll4LlHD80TKafO4NoXjCdl+JUvbKEpBNCjhetM=
+notifications:
+  email: false # who the fuck thought it would be a good idea to autospam people with useless notifications?
