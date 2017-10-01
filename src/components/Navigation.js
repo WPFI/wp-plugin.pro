@@ -1,107 +1,71 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import deepmerge from 'deepmerge';
 
 import style from './Navigation.module.styl';
-import { breakIntoParts } from '../lib/pages'
 
-class Navigation extends Component {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        tree: {},
-        treeGenInProgress: false,
-      };
-
-    }
-
-    buildFolderList() {
-      this.setState({
-        treeGenInProgress: true,
-      }, () => {
-          const filetree = this.props.pages.reduce((a, page) => {
-          const parts = breakIntoParts(page.filename).slice(1);
-          const addDir = (name) => ({ type: 'dir', name });
-          const addFile = (name) => ({ type: 'file', name, path: page.path, filename: page.filename });
-
-          const tree = parts.reduceRight((prev, cur) => {
-            if (prev === null) {
-              return addFile(cur);
-            } else {
-              return { ...addDir(cur), [prev.name]: prev };
-            }
-          }, null);
-
-            // console.log(tree);
-          // a[parts[0]] = tree;
-          return deepmerge(a, { [parts[0]]: tree });
-        }, {});
-
-        // console.log(filetree);
-
-        this.setState({
-          tree: filetree,
-          treeGenInProgress: false,
-        });
-      })
-    }
-
-    componentWillReceiveProps(newProps) {
-      if (this.props !== newProps) {
-        this.buildFolderList();
+const NextStage = ({ data }) => {
+  const items = Object.keys(data).map((key) => {
+    if (data[key] instanceof Function) {
+      console.log('Skipping function', key);
+    } else if (key !== '_meta') {
+      if (data[key]._meta && data[key]._meta.type === 'dir') {
+        return <NaviFolder data={data[key]} value={data[key]._meta.name} key={key} />
+      } else if (data[key]._meta) {
+        return <NaviLink to={data[key].filename} value={data[key]._meta.name} key={key} />
       }
     }
 
-    render() {
-      const naviLink = (item) => {
-        return item.filename
-          ? <NavLink to={item.filename.replace('./', '/docs/')}>{item.name}</NavLink>
-          : item.name
-      }
-      const nextStage = (tree) => {
-        const keys = Object.keys(tree);
+    return null;
+  });
 
-        if (keys.length < 3) {
-          return false;
-        }
+  return (
+    <ul>
+      {items}
+    </ul>
+  );
+};
 
-        return (
-          <ul>
-            {keys.map((key) => {
-              if (key === 'name' || key === 'type') {
-                return false;
-              } else {
-                const t = tree[key];
-                return (
-                  <li key={Math.random()}>
-                    {naviLink(t)}
-                    {typeof t !== 'string' ? nextStage(t) : ''}
-                  </li>
-                );
-              }
-            })}
-          </ul>
-        );
-      };
+const NaviFolder = ({ value, data, open = false } = {}) => (
+  <li style={{color: open ? 'pink' : 'green'}}>
+    {value}
+    { data ? <NextStage data={data} /> : false }
+  </li>
+);
 
-      return (
-        <nav className={style.siteNavigation} id={this.props.id}>
-          {this.props.children}
+const NaviLink = ({ to, value }) => (
+  <li>
+    <NavLink to={to}>
+      {value}
+    </NavLink>
+  </li>
+);
 
-          <ul>
-            {Object.keys(this.state.tree).map((key) => {
-              const tree = this.state.tree[key];
-              return <li key={key}>
-                {naviLink(tree)}
-                {nextStage(tree)}
-              </li>
-            })}
-          </ul>
+const Navigation = ({ filetree, id, children }) => (
+  <nav className={style.siteNavigation} id={id}>
+    {children}
 
-        </nav>
-      );
-  }
-}
+    <ul>
+      {Object.keys(filetree).map((key) => {
+        const tree = filetree[key];
+        // console.log(tree);
+
+        return tree instanceof Function
+          ? console.log('not insane') || tree()
+          : tree._meta.type === 'dir'
+            ? <NaviFolder data={tree} open={tree._meta.open} value={tree._meta.name} key={key} />
+            : <NaviLink data={tree} key={key} to={tree.filename} value={tree._meta.name} />
+      })}
+    </ul>
+  </nav>
+);
+
+Navigation.propTypes = {
+  filetree: PropTypes.instanceOf(Object),
+};
+
+Navigation.defaultProps = {
+  filetree: {},
+};
 
 export default Navigation;

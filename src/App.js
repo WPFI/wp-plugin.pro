@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import WebFont from 'webfontloader';
 
+import Filetree from './lib/filetree'
 import Navigation from './components/Navigation';
 import Main from './components/Main';
 
@@ -13,19 +14,27 @@ class App extends Component {
 
     this.state = {
       pages: [],
+      filetree: {},
     };
   }
 
   getPages() {
-    const context = require.context("./pages", true);
-    const pages = context.keys().map(function (filename) {
-      const path =  context(filename);
-      return { filename, path };
-    });
+    const { pages, filetree } = this.props;
+    if (pages && filetree) {
+      this.setState({
+        pages,
+        filetree,
+      });
+    } else {
+      const tree = Filetree();
 
-    this.setState({
-      pages
-    });
+      window.tree = tree;
+
+      this.setState({
+        pages: tree.getFiles(),
+        filetree: tree.getTree(),
+      });
+    }
   }
 
   componentDidMount() {
@@ -41,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navigation id="site-navigation" pages={this.state.pages}>
+        <Navigation id="site-navigation" filetree={this.state.filetree}>
           <header>
             <h1>WP-Plugin.pro</h1>
             <span className="tagline">
@@ -49,7 +58,7 @@ class App extends Component {
             </span>
           </header>
         </Navigation>
-        <Main id="main" pages={this.state.pages} />
+        <Main id="main" pages={this.state.pages} filetree={this.state.filetree}/>
       </div>
     );
   }

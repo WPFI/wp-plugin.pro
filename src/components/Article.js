@@ -4,7 +4,6 @@ import debounce from 'debounce';
 
 import style from './Article.module.styl';
 import shared from '../shared-variables.json';
-import { convertURLToLocal } from '../lib/pages'
 
 import marksy from 'marksy/components';
 import 'highlight.js/styles/railscasts.css';
@@ -100,10 +99,14 @@ class Article extends Component {
   componentDidMount() {
     const propsFile = this.props.file;
     const urlFile = this.props.match.url;
-    const target = convertURLToLocal(propsFile || urlFile);
+    const target = (propsFile || urlFile);
+
+    // console.log(this.props.pages, this.props.filetree);
 
     const file = this.props.pages.find((page) => page.filename === target);
     const failure = (msg) => this.setState({ article: msg });
+
+    console.log(target, file);
 
     if (file) {
       fetch(file.path)
