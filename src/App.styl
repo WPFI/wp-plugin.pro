@@ -9,6 +9,15 @@ html {
   box-sizing: inherit
 }
 
+:focus {
+  outline: 1px solid colors.orange
+  width: calc(100% - 1px)
+}
+
+::selection {
+  background: colors.orange
+}
+
 body, #root {
   height: 100%
 }
