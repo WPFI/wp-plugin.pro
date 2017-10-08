@@ -1,0 +1,87 @@
+@import '../Global'
+
+.siteNavigation {
+  background: colors.darkGray
+  color: colors.white
+  height: 100%
+
+  header {
+    padding: r(10px) r(20px)
+    text-align: center
+    background: colors.gray
+
+    h1 {
+      font-size: r(24px)
+      margin-bottom: r(5px)
+    }
+  }
+
+  ul {
+    list-style: none
+    padding: 0
+    margin: 0
+
+    li {
+      // padding: r(3px) r(10px)
+    }
+
+    ul {
+      li {
+        // padding: 0
+        // padding-left: r(10px)
+      }
+    }
+  }
+
+  a {
+    color: colors.orange
+
+    &.active {
+      color: colors.white
+    }
+  }
+}
+
+.Folder {
+  padding: 0
+  // background: darken(colors.darkGray, 10%)
+
+  button {
+    appearance: none
+    background: none
+    border: none
+    margin: 0
+    padding: r(4px) r(8px)
+    display: block
+    color: colors.white
+
+    &:before {
+      content: '▶'
+      display: inline-block
+      font-size: 0.5em
+      vertical-align: middle
+      margin-right: r(10px)
+    }
+  }
+
+  &.active {
+    > button {
+      &:before {
+        content: '▼'
+      }
+    }
+  }
+
+  > .Children {
+    margin-left: r(15px)
+  }
+}
+
+.File {
+  a {
+    display: block
+    padding: r(4px) r(10px)
+    // margin-left: r(-15px)
+    white-space: nowrap
+  }
+}

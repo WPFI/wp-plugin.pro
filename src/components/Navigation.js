@@ -1,71 +1,110 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import style from './Navigation.module.styl';
+import Filetree from '../lib/filetree.js';
+import './Navigation.styl';
 
-const NextStage = ({ data }) => {
-  const items = Object.keys(data).map((key) => {
-    if (data[key] instanceof Function) {
-      console.log('Skipping function', key);
-    } else if (key !== '_meta') {
-      if (data[key]._meta && data[key]._meta.type === 'dir') {
-        return <NaviFolder data={data[key]} value={data[key]._meta.name} key={key} />
-      } else if (data[key]._meta) {
-        return <NaviLink to={data[key].filename} value={data[key]._meta.name} key={key} />
-      }
+let toggler = () => console.log('Will be used to toggle folders.');
+const isRootDir = (dirname) => dirname.substr(6).indexOf('/') > -1 ? false : true;
+const basename = (str) => str.split('/').slice(-1)[0];
+const Kinder = ({ data, tree }) => data.directories.length > 0 || data.files.length > 0 ? (
+  <ul className="Children">
+    {
+      data.directories.map((dir) => {
+        return <Folder key={dir} tree={tree} name={dir} open={tree[dir].open} />
+      })
     }
 
-    return null;
-  });
+    {
+      data.files.map((file) => {
+        return <File key={file.path} name={file.filename} fetch={file.path} />
+      })
+    }
+  </ul>
+) : false;
 
+const Folder = (props) => {
+  const { tree, name, open = false } = props;
   return (
-    <ul>
-      {items}
-    </ul>
+    <li className={`Folder ${open ? 'active' : 'inactive'}`}>
+      <button onClick={() => toggler(name)}>{basename(name)}</button>
+      { open && tree[name] ? <Kinder data={tree[name]} tree={tree} /> : false }
+    </li>
   );
 };
 
-const NaviFolder = ({ value, data, open = false } = {}) => (
-  <li style={{color: open ? 'pink' : 'green'}}>
-    {value}
-    { data ? <NextStage data={data} /> : false }
-  </li>
-);
-
-const NaviLink = ({ to, value }) => (
-  <li>
-    <NavLink to={to}>
-      {value}
+const File = ({ name, fetch }) => (
+  <li className={`File`}>
+    <NavLink to={name}>
+      {basename(name)}
     </NavLink>
   </li>
 );
 
-const Navigation = ({ filetree, id, children }) => (
-  <nav className={style.siteNavigation} id={id}>
-    {children}
+class Navigation extends Component {
+  constructor() {
+    super();
 
-    <ul>
-      {Object.keys(filetree).map((key) => {
-        const tree = filetree[key];
-        // console.log(tree);
+    const tree = Filetree().getFlatTree();
+    this.state = {
+      tree: Object.keys(tree).reduce((acc, dirname) => {
+        const dir = tree[dirname];
+        if (isRootDir(dirname)) {
+          dir.open = true;
+        } else {
+          dir.open = false;
+        }
 
-        return tree instanceof Function
-          ? console.log('not insane') || tree()
-          : tree._meta.type === 'dir'
-            ? <NaviFolder data={tree} open={tree._meta.open} value={tree._meta.name} key={key} />
-            : <NaviLink data={tree} key={key} to={tree.filename} value={tree._meta.name} />
-      })}
-    </ul>
-  </nav>
-);
+        acc[dirname] = dir;
+        return acc;
+      }, {})
+    };
+
+    toggler = (dirname) => {
+      this.setState((prev) => {
+        const open = prev.tree[dirname].open;
+        const newDir = {
+          ...prev.tree[dirname],
+          open: !open,
+        };
+
+        return {
+          tree: {
+            ...prev.tree,
+            ...{ [dirname]: newDir },
+          }
+        };
+      });
+    };
+  }
+
+  render() {
+    const { children, id } = this.props;
+    const root = Object.keys(this.state.tree).filter(isRootDir);
+
+    return (
+    <nav className={`siteNavigation`} id={id}>
+      {children}
+
+      <ul>
+        {
+          root.map((dirname) => {
+            return (
+              <Folder key={dirname} open={this.state.tree[dirname].open} tree={this.state.tree} name={dirname} />
+            );
+          })
+        }
+      </ul>
+    </nav>
+    );
+  }
+}
 
 Navigation.propTypes = {
-  filetree: PropTypes.instanceOf(Object),
 };
 
 Navigation.defaultProps = {
-  filetree: {},
 };
 
 export default Navigation;
