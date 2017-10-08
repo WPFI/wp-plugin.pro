@@ -2,6 +2,7 @@ import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import debounce from 'debounce';
 
+import Filetree from '../lib/filetree';
 import style from './Article.module.styl';
 import shared from '../shared-variables.json';
 
@@ -40,6 +41,7 @@ class Article extends Component {
 
     this.state = {
       article: <p>Loading, please wait...</p>,
+      pages: Filetree().getFiles(),
     };
 
     this.debouncedResize = debounce(this.handleResize.bind(this), 16);
@@ -101,12 +103,8 @@ class Article extends Component {
     const urlFile = this.props.match.url;
     const target = (propsFile || urlFile);
 
-    // console.log(this.props.pages, this.props.filetree);
-
-    const file = this.props.pages.find((page) => page.filename === target);
+    const file = this.state.pages.find((page) => page.filename === target);
     const failure = (msg) => this.setState({ article: msg });
-
-    console.log(target, file);
 
     if (file) {
       fetch(file.path)

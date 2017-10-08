@@ -4,8 +4,12 @@ import { breakIntoParts } from './pages'
 
 let singleton;
 class filetree {
-  constructor() {
+  constructor(files) {
     this.generateTree();
+
+    if (files) {
+      this.files = files;
+    }
   }
 
   requireContext() {
@@ -124,9 +128,9 @@ class filetree {
   }
 }
 
-function Filetree() {
+function Filetree(files) {
   if (!singleton) {
-    singleton = new filetree();
+    singleton = new filetree(files);
   }
 
   return singleton;

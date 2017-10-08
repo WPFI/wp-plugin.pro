@@ -14,11 +14,11 @@ class Main extends Component {
     return (
       <main className={style.Main} id={this.props.id}>
         <Switch>
-          <Route exact path="/" component={(props) => <Article {...props} pages={this.props.pages} filetree={this.props.filetree} file="/docs/index.md" />} />
+          <Route exact path="/" component={(props) => <Article {...props} file="/docs/index.md" />} />
           <Route path="/about" component={About} />
 
-          <Route path="/docs/:folder*/:filename" component={(props) => <Article {...props} pages={this.props.pages} />} />
-          <Route path="/docs/:folder" component={(props) => <Article {...props} pages={this.props.pages} />} />
+          <Route path="/docs/:folder*/:filename" component={(props) => <Article {...props} />} />
+          <Route path="/docs/:folder" component={(props) => <Article {...props} />} />
         </Switch>
       </main>
     );

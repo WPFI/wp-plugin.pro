@@ -9,37 +9,19 @@ import 'normalize.css';
 import './App.styl';
 
 class App extends Component {
+  static defaultProps = {
+    navigation: true,
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       pages: [],
-      filetree: {},
     };
   }
 
-  getPages() {
-    const { pages, filetree } = this.props;
-    if (pages && filetree) {
-      this.setState({
-        pages,
-        filetree,
-      });
-    } else {
-      const tree = Filetree();
-
-      window.tree = tree;
-
-      this.setState({
-        pages: tree.getFiles(),
-        filetree: tree.getTree(),
-      });
-    }
-  }
-
   componentDidMount() {
-    this.getPages();
-
     WebFont.load({
       google: {
         families: ['Source Sans Pro', 'Source Code Pro'],
@@ -48,17 +30,21 @@ class App extends Component {
   }
 
   render() {
+    const tree = Filetree();
     return (
       <div className="App">
-        <Navigation id="site-navigation" filetree={this.state.filetree}>
-          <header>
-            <h1>WP-Plugin.pro</h1>
-            <span className="tagline">
-              Make WordPress great again.
-            </span>
-          </header>
-        </Navigation>
-        <Main id="main" pages={this.state.pages} filetree={this.state.filetree}/>
+        { this.props.navigation
+          ? <Navigation id="site-navigation">
+              <header>
+                <h1>WP-Plugin.pro</h1>
+                <span className="tagline">
+                  Make WordPress great again.
+                </span>
+              </header>
+          </Navigation>
+          : false
+        }
+        <Main id="main" pages={tree.getFiles()} />
       </div>
     );
   }

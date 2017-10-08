@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import Filetree from '../lib/filetree';
 
-import Filetree from '../lib/filetree.js';
 import './Navigation.styl';
 
 let toggler = () => console.log('Will be used to toggle folders.');
@@ -43,8 +43,12 @@ const File = ({ name, fetch }) => (
 );
 
 class Navigation extends Component {
-  constructor() {
-    super();
+  static propTypes = {
+    id: PropTypes.string,
+  }
+
+  constructor(props) {
+    super(props);
 
     const tree = Filetree().getFlatTree();
     this.state = {
@@ -100,11 +104,5 @@ class Navigation extends Component {
     );
   }
 }
-
-Navigation.propTypes = {
-};
-
-Navigation.defaultProps = {
-};
 
 export default Navigation;
