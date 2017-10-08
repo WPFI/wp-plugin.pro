@@ -29,7 +29,7 @@ const Folder = (props) => {
   const maybeOpenIndex = (e, open) => {
     if (open) {
       e.persist();
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         const links = Array.from(e.target.parentNode.querySelectorAll('a'));
         const cond = (link) => link.textContent.toLowerCase() === 'index.md' && link.href !== window.location.href;
         if (links && links.some(cond)) {
