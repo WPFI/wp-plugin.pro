@@ -57,7 +57,9 @@ class Navigation extends Component {
         if (isRootDir(dirname)) {
           dir.open = true;
         } else {
-          dir.open = false;
+          dir.open = decodeURIComponent(window.location.pathname).includes(dirname)
+            ? true
+            : false;
         }
 
         acc[dirname] = dir;
