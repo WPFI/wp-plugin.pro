@@ -14,7 +14,7 @@ class Main extends Component {
     return (
       <main className={style.Main} id={this.props.id}>
         <Switch>
-          <Route exact path="/" component={(props) => <Article {...props} file="/docs/index.md" />} />
+          <Route exact path="/" component={(props) => <Article {...props} file="/docs/About/index.md" />} />
           <Route path="/about" component={About} />
 
           <Route path="/docs/:folder*/:filename" component={(props) => <Article {...props} />} />
