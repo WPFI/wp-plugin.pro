@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import debounce from 'debounce';
 
 import Filetree from '../lib/filetree';
-import style from './Article.module.styl';
+import './Article.styl';
 import shared from '../shared-variables.json';
 
 import marksy from 'marksy/components';
@@ -34,6 +34,14 @@ const compile = marksy({
   }
 });
 
+const EditLink = () => {
+  const page = window.location.pathname.replace('/docs/', ''); // <a href="https://github.com/k1sul1/wp-plugin.pro/edit/master/src/pages/Advanced%20Custom%20Fields/tricks/index.md">
+  return (
+    <a className='Edit-link' href={`https://github.com/k1sul1/wp-plugin.pro/edit/master/src/pages/${page}`} target='_blank' rel='noopener noreferrer'>
+      Edit
+    </a>
+  );
+};
 
 class Article extends Component {
   constructor(props) {
@@ -165,17 +173,18 @@ class Article extends Component {
 
   render() {
     return (
-      <div className={style.Wrapper}>
+      <div className={`Wrapper`}>
         <style>{`
           article pre,
           article code {
             font-size: ${this.state.codeSize}px !important;
           }
         `}</style>
-        <article className={style.Article} ref={(n) => this.articleEl = n}>
+        <article className={`Article`} ref={(n) => this.articleEl = n}>
           {this.state.article}
+          <EditLink />
         </article>
-        <aside className={style.Sidebar}>
+        <aside className={`Sidebar`}>
         </aside>
       </div>
     );

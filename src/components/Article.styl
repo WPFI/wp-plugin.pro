@@ -19,7 +19,7 @@
   @media media.xlarge, media.large {
     width: 60%
   }
-  
+
   @media media.small, media.xsmall {
      padding-top: r(5px)
   }
@@ -31,13 +31,13 @@
   p {
     margin: 1rem 0 // Probably the only time I'll want a top margin.
   }
-  
+
   a {
     &:hover, &:focus, &:active {
       color: darken(colors.orange, 10%)
     }
   }
-  
+
   ul, ol {
     font-size: r(20px);
     padding: 0;
@@ -52,6 +52,28 @@
     background: colors.darkGray
     // transform: translateX(101%)
     // margin-bottom: -100%
+  }
+
+  .Edit-link {
+    display: inline-block
+    position: fixed
+    bottom: r(50px)
+    right: r(50px)
+    background: colors.black
+    color: colors.orange
+    width: r(35px)
+    height: @width
+    border-radius: @height
+    line-height: @height
+    padding: 0
+    font-size: r(12px)
+    text-align: center
+
+    @media (max-width: 769px) {
+      position: static
+      width: 100%
+      border-radius: 0
+    }
   }
 }
 
