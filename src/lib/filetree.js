@@ -60,7 +60,7 @@ class filetree {
 
     // Pass 3 -- remove unwanted dirs
     Object.keys(dirs).forEach(dirName => {
-      if (['/docs', '/'].indexOf(dirName) > -1) {
+      if (['/'].indexOf(dirName) > -1) {
         delete dirs[dirName];
       }
     });
