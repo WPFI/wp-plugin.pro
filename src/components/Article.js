@@ -42,13 +42,31 @@ class Article extends Component {
     this.state = {
       article: <p>Loading, please wait...</p>,
       pages: Filetree().getFiles(),
+      codeSize: 12,
     };
 
     this.debouncedResize = debounce(this.handleResize.bind(this), 16);
+    this.zoomBlocks = this.zoomBlocks.bind(this);
   }
 
   handleResize() {
     this.makeCodeSnippetsBehave();
+  }
+
+  zoomBlocks(e) {
+    if (this.lastClickedNodeWasPre) {
+      if (e.ctrlKey && e.keyCode === 107) { // +
+        this.setState(prev => ({
+          codeSize: prev.codeSize + 1
+        }));
+        e.preventDefault();
+      } else if (e.ctrlKey && e.keyCode === 109) { // -
+        this.setState(prev => ({
+          codeSize: prev.codeSize - 1
+        }));
+        e.preventDefault();
+      }
+    }
   }
 
   makeCodeSnippetsBehave() {
@@ -58,7 +76,7 @@ class Article extends Component {
     const component = ReactDOM.findDOMNode(this);
     const contentArea = component.querySelector('article');
     const aside = component.querySelector('aside');
-    const pres = component.querySelectorAll('pre');;
+    const pres = component.querySelectorAll('pre');
 
     const reset = () => {
       // Resetting the values and setting them again on the same frame doesn't work.
@@ -121,10 +139,24 @@ class Article extends Component {
     }
 
     window.addEventListener('resize', this.debouncedResize);
+
+    this.lastClickedNodeWasPre = false;
+    this.articleEl.addEventListener('click', (e) => {
+      const isPre = e.target.closest('pre');
+
+      if (isPre) {
+        this.lastClickedNodeWasPre = true;
+      } else {
+        this.lastClickedNodeWasPre = false;
+      }
+    });
+
+    window.addEventListener('keydown', this.zoomBlocks);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.debouncedResize);
+    window.removeEventListener('keydown', this.zoomBlocks);
   }
 
   componentDidUpdate() {
@@ -134,7 +166,13 @@ class Article extends Component {
   render() {
     return (
       <div className={style.Wrapper}>
-        <article className={style.Article}>
+        <style>{`
+          article pre,
+          article code {
+            font-size: ${this.state.codeSize}px !important;
+          }
+        `}</style>
+        <article className={style.Article} ref={(n) => this.articleEl = n}>
           {this.state.article}
         </article>
         <aside className={style.Sidebar}>
