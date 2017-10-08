@@ -26,9 +26,21 @@ const Kinder = ({ data, tree }) => data.directories.length > 0 || data.files.len
 
 const Folder = (props) => {
   const { tree, name, open = false } = props;
+  const maybeOpenIndex = (e, open) => {
+    if (open) {
+      e.persist();
+      requestAnimationFrame(() => {
+        const links = Array.from(e.target.parentNode.querySelectorAll('a'));
+        const cond = (link) => link.textContent.toLowerCase() === 'index.md' && link.href !== window.location.href;
+        if (links && links.some(cond)) {
+          links.find(cond).click();
+        }
+      }, 50); // might be too fast
+    }
+  };
   return (
-    <li className={`Folder ${open ? 'active' : 'inactive'}`}>
-      <button onClick={() => toggler(name)}>{basename(name)}</button>
+    <li className={`Folder ${open ? 'active' : 'inactive'}`} onClick={maybeOpenIndex}>
+      <button onClick={(e) => toggler(name) && maybeOpenIndex(e, open)}>{basename(name)}</button>
       { open && tree[name] ? <Kinder data={tree[name]} tree={tree} /> : false }
     </li>
   );
@@ -93,7 +105,7 @@ class Navigation extends Component {
     <nav className={`siteNavigation`} id={id}>
       {children}
 
-      <ul>
+      <ul className='menu'>
         {
           root.map((dirname) => {
             return (
