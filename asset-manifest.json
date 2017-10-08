@@ -1,9 +1,11 @@
 {
   "main.css": "static/css/main.f4746d5e.css",
   "main.css.map": "static/css/main.f4746d5e.css.map",
-  "main.js": "static/js/main.203386eb.js",
-  "main.js.map": "static/js/main.203386eb.js.map",
+  "main.js": "static/js/main.dbd930b3.js",
+  "main.js.map": "static/js/main.dbd930b3.js.map",
   "static/media/Menus.md": "static/media/Menus.f403569c.md",
   "static/media/Options page.md": "static/media/Options page.5baf205a.md",
-  "static/media/index.md": "static/media/index.60a6d8cc.md"
+  "static/media/file.md": "static/media/file.d41d8cd9.md",
+  "static/media/index.md": "static/media/index.60a6d8cc.md",
+  "static/media/lol.md": "static/media/lol.d41d8cd9.md"
 }

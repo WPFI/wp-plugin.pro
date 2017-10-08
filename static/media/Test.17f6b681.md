@@ -1,3 +1,0 @@
-Perkele
-
-Saatana
