@@ -33,7 +33,9 @@ const Folder = (props) => {
         const links = Array.from(e.target.parentNode.querySelectorAll('a'));
         const cond = (link) => link.textContent.toLowerCase() === 'index.md' && link.href !== window.location.href;
         if (links && links.some(cond)) {
-          links.find(cond).click();
+          const link = links.find(cond);
+          link.click();
+          link.focus();
         }
       }, 50); // might be too fast
     }
