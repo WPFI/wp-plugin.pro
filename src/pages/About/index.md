@@ -1,5 +1,5 @@
 # WTF is this about?
-Last time I checked, the WordPress plugin repository contained 52 202 plugins. The good ones drown in the noise, and the bad ones get love because they're popular or were the only solution in the past.
+Last time I checked, the WordPress plugin repository contained 54,659 plugins. The good ones drown in the noise, and the bad ones get love because they're popular or were the only solution in the past.
 
 **Example**: Yoast. For many years it was _the_ SEO plugin. Then it started adding useless features and bloating the interface. There are better solutions out there, but human is a creature of habit. Same goes for Contact Form 7, WPML, WP Super Cache, NextGEN Gallery, the list is endless.
 
