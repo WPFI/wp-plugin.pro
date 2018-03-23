@@ -150,12 +150,17 @@ class Article extends Component {
 
     this.lastClickedNodeWasPre = false;
     this.articleEl.addEventListener('click', (e) => {
+      const isHeading = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].some(element => e.target.tagName === element)
       const isPre = e.target.closest('pre');
 
       if (isPre) {
         this.lastClickedNodeWasPre = true;
       } else {
         this.lastClickedNodeWasPre = false;
+      }
+
+      if (isHeading) {
+        window.location.hash = e.target.id
       }
     });
 
