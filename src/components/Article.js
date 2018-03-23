@@ -34,14 +34,6 @@ const compile = marksy({
   }
 });
 
-const EditLink = () => {
-  const page = window.location.pathname.replace('/docs/', ''); // <a href="https://github.com/WPFI/wp-plugin.pro/edit/master/src/pages/Advanced%20Custom%20Fields/tricks/index.md">
-  return (
-    <a className='Edit-link' href={`https://github.com/WPFI/wp-plugin.pro/edit/master/src/pages/${page}`} target='_blank' rel='noopener noreferrer'>
-      Edit
-    </a>
-  );
-};
 
 class Article extends Component {
   constructor(props) {
@@ -49,12 +41,14 @@ class Article extends Component {
 
     this.state = {
       article: <p>Loading, please wait...</p>,
+      articleText: '',
       pages: Filetree().getFiles(),
       codeSize: 12,
     };
 
     this.debouncedResize = debounce(this.handleResize.bind(this), 16);
     this.zoomBlocks = this.zoomBlocks.bind(this);
+    this.EditLink = this.EditLink.bind(this);
   }
 
   handleResize() {
@@ -136,10 +130,12 @@ class Article extends Component {
       fetch(file.path)
         .then((r) => r.text())
         .then((r) => {
-          const article = compile(r).tree;
+          const articleText = r
+          const article = compile(articleText).tree;
 
           this.setState({
-            article
+            article,
+            articleText,
           });
         }).catch(failure);
     } else {
@@ -176,6 +172,23 @@ class Article extends Component {
     this.makeCodeSnippetsBehave();
   }
 
+  EditLink() {
+    // This shouldn't really require this, refactor please
+    const page = window.location.pathname.replace('/docs/', '');
+    const articleLength = this.state.articleText.length
+
+    return (
+      <a
+        className={`Edit-link ${articleLength < 300 ? 'shakeshake' : ''}`}
+        href={`https://github.com/k1sul1/wp-plugin.pro/edit/master/src/pages/${page}`}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        Edit
+      </a>
+    );
+  }
+
   render() {
     return (
       <div className={`Wrapper`}>
@@ -187,7 +200,7 @@ class Article extends Component {
         `}</style>
         <article className={`Article`} ref={(n) => this.articleEl = n}>
           {this.state.article}
-          <EditLink />
+          <this.EditLink />
         </article>
         <aside className={`Sidebar`}>
         </aside>
