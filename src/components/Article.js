@@ -35,9 +35,9 @@ const compile = marksy({
 });
 
 const EditLink = () => {
-  const page = window.location.pathname.replace('/docs/', ''); // <a href="https://github.com/k1sul1/wp-plugin.pro/edit/master/src/pages/Advanced%20Custom%20Fields/tricks/index.md">
+  const page = window.location.pathname.replace('/docs/', ''); // <a href="https://github.com/WPFI/wp-plugin.pro/edit/master/src/pages/Advanced%20Custom%20Fields/tricks/index.md">
   return (
-    <a className='Edit-link' href={`https://github.com/k1sul1/wp-plugin.pro/edit/master/src/pages/${page}`} target='_blank' rel='noopener noreferrer'>
+    <a className='Edit-link' href={`https://github.com/WPFI/wp-plugin.pro/edit/master/src/pages/${page}`} target='_blank' rel='noopener noreferrer'>
       Edit
     </a>
   );

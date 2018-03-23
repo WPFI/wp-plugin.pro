@@ -109,7 +109,7 @@ class Navigation extends Component {
 
       <ul className='external-menu'>
         <li className='External'>
-          <a href='https://github.com/k1sul1/wp-plugin.pro/new/master/src/pages' target='_blank' rel='noopener noreferrer'>
+          <a href='https://github.com/WPFI/wp-plugin.pro/new/master/src/pages' target='_blank' rel='noopener noreferrer'>
             Create a new page
           </a>
         </li>

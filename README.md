@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/k1sul1/wp-plugin.pro.svg?branch=master)](https://travis-ci.org/k1sul1/wp-plugin.pro)
+[![Build Status](https://travis-ci.org/WPFI/wp-plugin.pro.svg?branch=master)](https://travis-ci.org/WPFI/wp-plugin.pro)
 
 # WP-Plugin.pro
 
